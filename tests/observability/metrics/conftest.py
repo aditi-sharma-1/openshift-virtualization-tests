@@ -47,6 +47,7 @@ from utilities.constants import (
     KUBEVIRT_VMI_MEMORY_USABLE_BYTES,
     MIGRATION_POLICY_VM_LABEL,
     ONE_CPU_CORE,
+    ONE_CPU_THREAD,
     OS_FLAVOR_FEDORA,
     SSP_OPERATOR,
     TIMEOUT_2MIN,
@@ -56,7 +57,6 @@ from utilities.constants import (
     TIMEOUT_15SEC,
     TWO_CPU_CORES,
     TWO_CPU_SOCKETS,
-    ONE_CPU_THREAD,
     TWO_CPU_THREADS,
     VIRT_TEMPLATE_VALIDATOR,
     Images,
@@ -97,9 +97,11 @@ METRICS_WITH_WINDOWS_VM_BUGS = [
     KUBEVIRT_VMI_MEMORY_PGMINFAULT_TOTAL,
 ]
 
+
 def get_cpu_threads_arch():
     arch = get_cluster_architecture()
     return ONE_CPU_THREAD if arch == "s390x" else TWO_CPU_THREADS
+
 
 @pytest.fixture(scope="module")
 def unique_namespace(admin_client, unprivileged_client):
