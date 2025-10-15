@@ -48,6 +48,7 @@ from utilities.constants import (
     ONE_CPU_CORE,
     ONE_CPU_THREAD,
     OS_FLAVOR_FEDORA,
+    S390X,
     SSP_OPERATOR,
     TIMEOUT_2MIN,
     TIMEOUT_3MIN,
@@ -59,7 +60,6 @@ from utilities.constants import (
     TWO_CPU_THREADS,
     VIRT_TEMPLATE_VALIDATOR,
     Images,
-    S390X,
 )
 from utilities.hco import ResourceEditorValidateHCOReconcile, enabled_aaq_in_hco
 from utilities.infra import (
