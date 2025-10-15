@@ -36,7 +36,6 @@ from tests.observability.metrics.utils import (
 from tests.observability.utils import validate_metrics_value
 from tests.utils import create_vms
 from utilities import console
-from utilities.architecture import get_cluster_architecture
 from utilities.constants import (
     IPV4_STR,
     KUBEVIRT_VMI_MEMORY_PGMAJFAULT_TOTAL,
@@ -60,6 +59,7 @@ from utilities.constants import (
     TWO_CPU_THREADS,
     VIRT_TEMPLATE_VALIDATOR,
     Images,
+    S390X,
 )
 from utilities.hco import ResourceEditorValidateHCOReconcile, enabled_aaq_in_hco
 from utilities.infra import (
@@ -96,11 +96,6 @@ METRICS_WITH_WINDOWS_VM_BUGS = [
     KUBEVIRT_VMI_MEMORY_USABLE_BYTES,
     KUBEVIRT_VMI_MEMORY_PGMINFAULT_TOTAL,
 ]
-
-
-def get_cpu_threads_arch():
-    arch = get_cluster_architecture()
-    return ONE_CPU_THREAD if arch == "s390x" else TWO_CPU_THREADS
 
 
 @pytest.fixture(scope="module")
@@ -281,9 +276,10 @@ def windows_vm_for_test_interface_name(windows_vm_for_test):
 
 
 @pytest.fixture(scope="class")
-def vm_with_cpu_spec(namespace, unprivileged_client):
+def vm_with_cpu_spec(namespace, unprivileged_client, nodes_cpu_architecture):
     name = "vm-resource-test"
-    cpu_threads = get_cpu_threads_arch()  # dynamically set based on arch
+    arch = nodes_cpu_architecture
+    cpu_threads = ONE_CPU_THREAD if arch == S390X else TWO_CPU_THREADS  # dynamically set based on arch
 
     with VirtualMachineForTests(
         name=name,
