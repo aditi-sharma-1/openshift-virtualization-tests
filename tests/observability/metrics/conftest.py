@@ -48,7 +48,6 @@ from utilities.constants import (
     ONE_CPU_CORE,
     ONE_CPU_THREAD,
     OS_FLAVOR_FEDORA,
-    S390X,
     SSP_OPERATOR,
     TIMEOUT_2MIN,
     TIMEOUT_3MIN,
@@ -276,10 +275,9 @@ def windows_vm_for_test_interface_name(windows_vm_for_test):
 
 
 @pytest.fixture(scope="class")
-def vm_with_cpu_spec(namespace, unprivileged_client, nodes_cpu_architecture):
+def vm_with_cpu_spec(namespace, unprivileged_client, is_s390x_cluster):
     name = "vm-resource-test"
-    arch = nodes_cpu_architecture
-    cpu_threads = ONE_CPU_THREAD if arch == S390X else TWO_CPU_THREADS  # dynamically set based on arch
+    cpu_threads = ONE_CPU_THREAD if is_s390x_cluster else TWO_CPU_THREADS  # dynamically set based on arch
 
     with VirtualMachineForTests(
         name=name,
