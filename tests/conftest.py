@@ -77,6 +77,7 @@ from utilities.constants import (
     AAQ_NAMESPACE_LABEL,
     AMD,
     ARM_64,
+    S390X,
     ARQ_QUOTA_HARD_SPEC,
     AUDIT_LOGS_PATH,
     CDI_KUBEVIRT_HYPERCONVERGED,
@@ -1157,6 +1158,11 @@ def nodes_cpu_vendor(schedulable_nodes):
 @pytest.fixture(scope="session")
 def nodes_cpu_architecture(nodes):
     return get_nodes_cpu_architecture(nodes=nodes)
+
+
+@pytest.fixture(scope="session")
+def is_s390x_cluster(nodes_cpu_architecture):
+    return nodes_cpu_architecture == S390X
 
 
 @pytest.fixture(scope="session")
