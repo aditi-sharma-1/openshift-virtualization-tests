@@ -46,7 +46,6 @@ from utilities.constants import (
     KUBEVIRT_VMI_MEMORY_USABLE_BYTES,
     MIGRATION_POLICY_VM_LABEL,
     ONE_CPU_CORE,
-    ONE_CPU_THREAD,
     OS_FLAVOR_FEDORA,
     SSP_OPERATOR,
     TIMEOUT_2MIN,
@@ -275,10 +274,9 @@ def windows_vm_for_test_interface_name(windows_vm_for_test):
 
 
 @pytest.fixture(scope="class")
-def vm_with_cpu_spec(namespace, unprivileged_client, is_s390x_cluster):
+def vm_with_cpu_spec(namespace, unprivileged_client):
     name = "vm-resource-test"
-    cpu_threads = ONE_CPU_THREAD if is_s390x_cluster else TWO_CPU_THREADS  # dynamically set based on arch
-
+    cpu_threads =TWO_CPU_THREADS,
     with VirtualMachineForTests(
         name=name,
         namespace=namespace.name,
@@ -288,7 +286,6 @@ def vm_with_cpu_spec(namespace, unprivileged_client, is_s390x_cluster):
         body=fedora_vm_body(name=name),
         client=unprivileged_client,
     ) as vm:
-        running_vm(vm=vm)
         yield vm
 
 
