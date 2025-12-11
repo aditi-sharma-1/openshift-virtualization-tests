@@ -276,13 +276,12 @@ def windows_vm_for_test_interface_name(windows_vm_for_test):
 @pytest.fixture(scope="class")
 def vm_with_cpu_spec(namespace, unprivileged_client):
     name = "vm-resource-test"
-    cpu_threads =TWO_CPU_THREADS,
     with VirtualMachineForTests(
         name=name,
         namespace=namespace.name,
         cpu_cores=TWO_CPU_CORES,
         cpu_sockets=TWO_CPU_SOCKETS,
-        cpu_threads=cpu_threads,
+        cpu_threads=TWO_CPU_THREADS,
         body=fedora_vm_body(name=name),
         client=unprivileged_client,
     ) as vm:
