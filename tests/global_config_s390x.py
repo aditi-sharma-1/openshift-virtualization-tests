@@ -1,16 +1,15 @@
 from typing import Any
 
-import utilities.constants
 from utilities.constants import (
-    EXPECTED_CLUSTER_INSTANCE_TYPE_LABELS,
-    PREFERENCE_STR,
-    S390X,
     CENTOS_STREAM9_PREFERENCE,
     CENTOS_STREAM10_PREFERENCE,
+    EXPECTED_CLUSTER_INSTANCE_TYPE_LABELS,
     OS_FLAVOR_FEDORA,
+    PREFERENCE_STR,
     RHEL8_PREFERENCE,
     RHEL9_PREFERENCE,
     RHEL10_PREFERENCE,
+    S390X,
 )
 from utilities.infra import get_latest_os_dict_list
 from utilities.os_utils import generate_linux_instance_type_os_matrix, generate_os_matrix_dict
